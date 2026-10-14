@@ -1,0 +1,52 @@
+type User @table {
+  displayName: String!
+  createdAt: Timestamp!
+  email: String
+  photoUrl: String
+  shippingAddress: String
+  billingAddress: String
+}
+
+type Product @table {
+  name: String!
+  price: Float!
+  description: String!
+  createdAt: Timestamp!
+  imageUrl: String
+  category: String
+  stockQuantity: Int
+}
+
+type Cart @table {
+  user: User!
+  createdAt: Timestamp!
+  updatedAt: Timestamp!
+}
+
+type CartItem @table {
+  cart: Cart!
+  product: Product!
+  quantity: Int!
+  unitPrice: Float!
+  createdAt: Timestamp!
+  updatedAt: Timestamp!
+  negotiatedPrice: Float
+}
+
+type Negotiation @table {
+  cartItem: CartItem!
+  user: User!
+  originalPrice: Float!
+  status: String!
+  createdAt: Timestamp!
+  updatedAt: Timestamp!
+  finalOfferPrice: Float
+  aiResponseCount: Int
+}
+
+type NegotiationOffer @table {
+  negotiation: Negotiation!
+  proposedPrice: Float!
+  offeredBy: String!
+  createdAt: Timestamp!
+}

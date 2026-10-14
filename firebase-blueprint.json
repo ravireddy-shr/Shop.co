@@ -1,0 +1,79 @@
+{
+  "entities": {
+    "Product": {
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "price": { "type": "number" },
+        "minPrice": { "type": "number" },
+        "discountPercentage": { "type": "number" },
+        "category": { "type": "string" },
+        "subCategory": { "type": "string" },
+        "productType": { "type": "string" },
+        "gender": { "type": "string" },
+        "colour": { "type": "string" },
+        "usage": { "type": "string" },
+        "imageURL": { "type": "string" },
+        "stock": { "type": "number" }
+      }
+    },
+    "User": {
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "role": { "type": "string", "enum": ["customer", "admin"] }
+      }
+    },
+    "Cart": {
+      "properties": {
+        "uid": { "type": "string" },
+        "items": { "type": "array" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "Order": {
+      "properties": {
+        "orderId": { "type": "string" },
+        "uid": { "type": "string" },
+        "items": { "type": "array" },
+        "originalTotal": { "type": "number" },
+        "finalTotal": { "type": "number" },
+        "negotiationSavings": { "type": "number" },
+        "status": { "type": "string" }
+      }
+    },
+    "BehaviorLog": {
+      "properties": {
+        "sessionId": { "type": "string" },
+        "uid": { "type": "string" },
+        "productId": { "type": "string" },
+        "hesitationType": { "type": "string", "enum": ["price", "product", "trust", "unknown"] },
+        "hesitationScore": { "type": "object" },
+        "aiActionTaken": { "type": "string" },
+        "outcome": { "type": "string" }
+      }
+    },
+    "PatternMemory": {
+      "properties": {
+        "patternId": { "type": "string" },
+        "hesitationType": { "type": "string" },
+        "actionTaken": { "type": "string" },
+        "channel": { "type": "string" },
+        "successRate": { "type": "number" },
+        "successCount": { "type": "number" },
+        "failureCount": { "type": "number" }
+      }
+    },
+    "Notification": {
+      "properties": {
+        "notificationId": { "type": "string" },
+        "uid": { "type": "string" },
+        "hesitationType": { "type": "string" },
+        "message": { "type": "string" },
+        "channel": { "type": "string" },
+        "outcome": { "type": "string" }
+      }
+    }
+  }
+}

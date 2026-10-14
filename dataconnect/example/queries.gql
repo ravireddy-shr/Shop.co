@@ -1,0 +1,58 @@
+query GetProductsList @auth(level: PUBLIC, insecureReason: "This operation is safe to expose to the public.") {
+  products {
+    id
+    name
+    description
+    price
+    imageUrl
+    category
+    stockQuantity
+    createdAt
+  }
+}
+
+query GetMyCart @auth(level: USER) {
+  carts(where: { userId: { eq_expr: "auth.uid" } }) {
+    id
+    createdAt
+    updatedAt
+    cartItems {
+      id
+      quantity
+      unitPrice
+      negotiatedPrice
+      product {
+        id
+        name
+        price
+      }
+    }
+  }
+}
+
+mutation AddItemToCart($cartId: UUID!, $productId: UUID!, $quantity: Int!) @auth(level: USER) {
+  cartItem_insert(
+    data: {
+      cartId: $cartId
+      productId: $productId
+      quantity: $quantity
+      unitPrice_expr: "response.product.price"
+      createdAt_expr: "request.time"
+      updatedAt_expr: "request.time"
+    }
+  ) {
+    id
+  }
+  product: product(id: $productId) @redact {
+    price
+  }
+}
+
+mutation UpdateCartItemQuantity($cartItemId: UUID!, $quantity: Int!) @auth(level: USER) {
+  cartItem_update(
+    key: { id: $cartItemId }
+    data: { quantity: $quantity, updatedAt_expr: "request.time" }
+  ) {
+    id
+  }
+}
