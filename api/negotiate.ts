@@ -1,7 +1,7 @@
 import {
   handleNegotiationRequest,
   type NegotiationRequest,
-} from "../src/server/negotiation";
+} from "../src/server/negotiation.ts";
 
 interface VercelRequest {
   method?: string;
